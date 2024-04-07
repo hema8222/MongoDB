@@ -1,0 +1,207 @@
+1. db.Customers.insertMany(
+  [
+    {"Customer ID":"101","Customer Name":"Praveen","City":"Coimbatore","Addresss":"12, Jain Street","Contact":"9765432190"},
+{"Customer ID": "102", "Customer Name":"Rattan","city":"Delhi","Addresss":"14, Nehru Street","Contact":"9867854321"},
+    {"Customer ID": "103", "Customer Name":"Charles","city":"Mumbai","Addresss":"67, Canal Street","Contact":"8765412345"},
+{"Customer ID": "104", "Customer Name":"Tiger","city":"Pune","Addresss":"34, Mocha Street","Contact":"7890123456"},
+{"Customer ID": "105", "Customer Name":"Kishore","city":"Bangalore","Addresss":"9, West Road","Contact":"6789054321"}
+])
+
+{
+ acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('661274d0d3b2909fb37d5e62')
+  }
+}
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66127670d3b2909fb37d5e63'),
+    '1': ObjectId('66127670d3b2909fb37d5e64'),
+    '2': ObjectId('66127670d3b2909fb37d5e65'),
+    '3': ObjectId('66127670d3b2909fb37d5e66')
+  }
+}
+
+  db.Orders.insertMany(
+[
+  {"Order ID": "1", "Order No":"20123","Order Date":"8/11/22","Customer ID":"101","Product":"Samsung Mobile","Ship Date":"10/11/22","Quantity":"1"},
+{"Order ID": "2", "Order No":"20124","Order Date":"7/11/22","Customer ID":"102","Product":"Oppo Mobile","Ship Date":"11/11/22","Quantity":"2"},
+{"Order ID": "3", "Order No":"20125","Order Date":"8/11/22","Customer ID":"101","Product":"VU TV","Ship Date":"11/11/22","Quantity":"1"},
+{"Order ID": "4", "Order No":"20126","Order Date":"6/11/22","Customer ID":"103","Product":"iPhone 12","Ship Date":"10/11/22","Quantity":"2"},
+{"Order ID": "5", "Order No":"20127","Order Date":"10/11/22","Customer ID":"104","Product":"iPad","Ship Date":"12/11/22","Quantity":"2"}
+])
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66127928d3b2909fb37d5e67'),
+    '1': ObjectId('66127928d3b2909fb37d5e68'),
+    '2': ObjectId('66127928d3b2909fb37d5e69'),
+    '3': ObjectId('66127928d3b2909fb37d5e6a'),
+    '4': ObjectId('66127928d3b2909fb37d5e6b')
+  }
+}
+
+
+2.  db.Orders.createIndex({ "Product": 1 });
+
+Product_1
+
+
+3.  db.Orders.find({ "Product": "iPad" });
+{
+  _id: ObjectId('66127928d3b2909fb37d5e6b'),
+  'Order ID': '5',
+  'Order No': '20127',
+  'Order Date': '10/11/22',
+  'Customer ID': '104',
+  Product: 'iPad',
+  'Ship Date': '12/11/22',
+  Quantity: '2'
+}
+
+4.  db.Customers.updateOne({ "Customer Name": "Kishore" }, { $set: { "Contact": 9876512345 } });
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+5.  db.Orders.find({ "Order No": 20125, "Quantity": { $gt: 1 } });
+
+6.  db.Customers.find().sort({ "Customer Name": 1 });
+{
+  _id: ObjectId('66127670d3b2909fb37d5e64'),
+  'Customer ID': '103',
+  'Customer Name': 'Charles',
+  city: 'Mumbai',
+  Addresss: '67, Canal Street',
+  Contact: '8765412345'
+}
+{
+  _id: ObjectId('66127670d3b2909fb37d5e66'),
+  'Customer ID': '105',
+  'Customer Name': 'Kishore',
+  city: 'Bangalore',
+  Addresss: '9, West Road',
+  Contact: 9876512345
+}
+{
+  _id: ObjectId('661274d0d3b2909fb37d5e62'),
+  'Customer ID': '101',
+  'Customer Name': 'Praveen',
+  City: 'Coimbatore',
+  Addresss: '12, Jain Street',
+  Contact: '9765432190'
+}
+{
+  _id: ObjectId('66127670d3b2909fb37d5e63'),
+  'Customer ID': '102',
+  'Customer Name': 'Rattan',
+  city: 'Delhi',
+  Addresss: '14, Nehru Street',
+  Contact: '9867854321'
+}
+{
+  _id: ObjectId('66127670d3b2909fb37d5e65'),
+  'Customer ID': '104',
+  'Customer Name': 'Tiger',
+  city: 'Pune',
+  Addresss: '34, Mocha Street',
+  Contact: '7890123456'
+}
+
+7.  db.Orders.find({}, { "Product": 1, "Quantity": 1 });
+{
+  _id: ObjectId('66127928d3b2909fb37d5e67'),
+  Product: 'Samsung Mobile',
+  Quantity: '1'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e68'),
+  Product: 'Oppo Mobile',
+  Quantity: '2'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e69'),
+  Product: 'VU TV',
+  Quantity: '1'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e6a'),
+  Product: 'iPhone 12',
+  Quantity: '2'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e6b'),
+  Product: 'iPad',
+  Quantity: '2'
+}
+
+8.  db.Orders.updateOne({ "Order No": 20126, "Product": "iPhone 12" }, { $set: { "Product": "iPhone 14" } });
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+
+9.  db.Orders.find({ "Quantity": { $ne: 2 } });
+{
+  _id: ObjectId('66127928d3b2909fb37d5e67'),
+  'Order ID': '1',
+  'Order No': '20123',
+  'Order Date': '8/11/22',
+  'Customer ID': '101',
+  Product: 'Samsung Mobile',
+  'Ship Date': '10/11/22',
+  Quantity: '1'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e68'),
+  'Order ID': '2',
+  'Order No': '20124',
+  'Order Date': '7/11/22',
+  'Customer ID': '102',
+  Product: 'Oppo Mobile',
+  'Ship Date': '11/11/22',
+  Quantity: '2'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e69'),
+  'Order ID': '3',
+  'Order No': '20125',
+  'Order Date': '8/11/22',
+  'Customer ID': '101',
+  Product: 'VU TV',
+  'Ship Date': '11/11/22',
+  Quantity: '1'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e6a'),
+  'Order ID': '4',
+  'Order No': '20126',
+  'Order Date': '6/11/22',
+  'Customer ID': '103',
+  Product: 'iPhone 12',
+  'Ship Date': '10/11/22',
+  Quantity: '2'
+}
+{
+  _id: ObjectId('66127928d3b2909fb37d5e6b'),
+  'Order ID': '5',
+  'Order No': '20127',
+  'Order Date': '10/11/22',
+  'Customer ID': '104',
+  Product: 'iPad',
+  'Ship Date': '12/11/22',
+  Quantity: '2'
+}
+
+10.  db.Customers.deleteOne({ "City": "Pune" });
